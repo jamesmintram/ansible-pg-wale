@@ -73,4 +73,3 @@
     month="{{ pg_wale_base_backup_month }}"
     user="{{ pg_wale_user }}"
     job="envdir {{ pg_wale_env_folder }} wal-e backup-push  {{ pg_wale_pgdata_dir }}"
-    state="{% if wal_e_base_backup_disabled %}absent{% else %}present{% endif %}"
