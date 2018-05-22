@@ -20,7 +20,7 @@
     accept_hostkey=yes
 
 - name: install wal-e
-  become_user: {{pg_wale_user}}
+  become_user: "{{pg_wale_user}}"
   command: pip3 install boto boto3 wal-e
 
 - name: create env directory
