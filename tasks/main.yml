@@ -20,16 +20,8 @@
     accept_hostkey=yes
 
 - name: install wal-e
-  sudo: true
-  command: python3 setup.py install
-  args:
-    chdir: /tmp/wal-e
-
-- name: remove the install files
-  sudo: true
-  file: >
-    state=absent
-    path=/tmp/wal-e
+  become_user: {{pg_wale_user}}
+  command: pip3 install boto boto3 wal-e
 
 - name: create env directory
   sudo: true
@@ -38,6 +30,8 @@
     owner={{pg_wale_user}}
     group={{pg_wale_user}}
     path={{pg_wale_env_folder}}
+
+#---------------------------------------------------------
 
 - name: create env file for AWS_SECRET_ACCESS_KEY
   sudo: true
@@ -48,11 +42,29 @@
     group={{pg_wale_user}}
     mode=640
 
-- name: populate an example recovery file
+- name: create env file for AWS_ACCESS_KEY_ID
   sudo: true
   template: >
-    src=recovery.example.j2
-    dest={{pg_wale_pg_directory}}/recovery.example
+    src=AWS_ACCESS_KEY_ID.j2
+    dest={{pg_wale_access_key_id}}/AWS_ACCESS_KEY_ID
     owner={{pg_wale_user}}
     group={{pg_wale_user}}
-    mode=755
+    mode=640
+
+- name: create env file for AWS_REGION
+  sudo: true
+  template: >
+    src=AWS_REGION.j2
+    dest={{pg_s3_region}}/AWS_REGION
+    owner={{pg_wale_user}}
+    group={{pg_wale_user}}
+    mode=640
+
+- name: create env file for WALE_S3_PREFIX
+  sudo: true
+  template: >
+    src=WALE_S3_PREFIX.j2
+    dest={{pg_wale_s3_prefix}}/WALE_S3_PREFIX
+    owner={{pg_wale_user}}
+    group={{pg_wale_user}}
+    mode=640
