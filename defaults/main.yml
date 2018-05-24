@@ -3,6 +3,7 @@ pg_wale_secret_access_key: foo-secret-access-key
 pg_wale_s3_prefix: s3://some-bucket/directory/or/whatever
 
 pg_wale_user: postgres
+pg_wale_group: postgresql
 pg_wale_env_folder: /etc/wal-e.d/env
 
 pg_wale_base_backup_minute: '0'
