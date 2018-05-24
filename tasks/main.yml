@@ -72,4 +72,4 @@
     weekday="{{ pg_wale_base_backup_weekday}}"
     month="{{ pg_wale_base_backup_month }}"
     user="{{ pg_wale_user }}"
-    job="envdir {{ pg_wale_env_folder }} /usr/local/bin/wal-e backup-push  {{ pg_wale_pgdata_dir }}"
+    job="/var/lib/{{ pg_wale_user }}/.local/bin/envdir {{ pg_wale_env_folder }} /var/lib/{{ pg_wale_user }}/.local/bin/wal-e backup-push  {{ pg_wale_pgdata_dir }}"
